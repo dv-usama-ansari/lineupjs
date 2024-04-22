@@ -393,9 +393,15 @@ export default class NumberColumn extends ValueColumn<number> implements INumber
       return;
     }
     const bak = this.getFilter();
-    this.currentFilter.min = isUnknown(value.min) ? Number.NEGATIVE_INFINITY : value.min;
-    this.currentFilter.max = isUnknown(value.max) ? Number.POSITIVE_INFINITY : value.max;
-    this.currentFilter.filterMissing = value.filterMissing;
+    // this.currentFilter.min = isUnknown(value.min) ? Number.NEGATIVE_INFINITY : value.min;
+    // this.currentFilter.max = isUnknown(value.max) ? Number.POSITIVE_INFINITY : value.max;
+    // this.currentFilter.filterMissing = value.filterMissing;
+    this.currentFilter = {
+      ...this.currentFilter,
+      min: isUnknown(value.min) ? Number.NEGATIVE_INFINITY : value.min,
+      max: isUnknown(value.max) ? Number.POSITIVE_INFINITY : value.max,
+      filterMissing: value.filterMissing,
+    };
     this.fire(
       [NumberColumn.EVENT_FILTER_CHANGED, Column.EVENT_DIRTY_VALUES, Column.EVENT_DIRTY],
       bak,
